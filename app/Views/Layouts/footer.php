@@ -3,7 +3,9 @@
         <img src="" alt=""> <!-- Te bus logo, bet tas kamer nav izveidots -->
         <h3>Preču kategorijas</h2>
         <ul>
-            <li></li> <!-- Preču kategoriju liste veidosies no datubāzes datiem tapēc kamer te ir tukšs -->
+        <?php foreach ($footerCategories as $category): ?>
+            <li><a href="#"><?= $category->category_name; ?></a></li>
+        <?php endforeach; ?>
         </ul>
         <h3>Informācijai</h3>
         <ul>
