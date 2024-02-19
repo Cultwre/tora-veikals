@@ -1,30 +1,13 @@
-* {
-  padding: 0;
-  margin: 0;
-  font-family: "Afacad", sans-serif;
-  font-size: 20px;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  overflow: none;
-  display: flex;
-  flex-direction: column;
-}
-
-ul {
-  list-style: none;
-}
-
 #tora_logo {
   max-width: 50px;
   min-width: 50px;
   aspect-ratio: 1/1;
   cursor: pointer;
+}
+
+.page-header {
+  position: sticky;
+  top: 0;
 }
 
 header {
@@ -78,10 +61,6 @@ header {
   position: relative;
 }
 
-.material-symbols-outlined {
-  color: #5f3dc4;
-}
-
 .search {
   position: absolute;
   top: 50%;
@@ -90,17 +69,6 @@ header {
   color: #5f3dc4;
   font-size: 30px !important;
   cursor: pointer;
-}
-
-.hyperlink {
-  text-decoration: none;
-  color: #868e96;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.hyperlink:hover {
-  color: #5f3dc4;
 }
 
 .header-buttons,
@@ -138,44 +106,4 @@ header {
   position: relative;
   display: inline-block;
   font-size: 24px; /* Adjust the font size as needed */
-}
-
-.navbar-container {
-  display: flex;
-  width: 100%;
-  border-bottom: 1px solid #dee2e6;
-  height: 60px;
-  background-color: #ffffff;
-}
-
-.navbar {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  width: 100%;
-}
-
-.nav-items {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 50px;
-  padding-left: 50px;
-  height: 100%;
-}
-
-.row-with-gap {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  text-decoration: none;
-}
-
-.home-page {
-  overflow: auto;
-  flex: 1;
-}
-
-.test {
-  height: 1000px;
 }
