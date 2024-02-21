@@ -3,6 +3,7 @@ aside {
   right: -401px;
   bottom: 0;
   transition: 0.3s;
+  z-index: 999;
 }
 
 .side-cart_content {

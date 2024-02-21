@@ -7,7 +7,8 @@
 
 html,
 body {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   background-color: #e9ecef;
 }
 
@@ -87,8 +88,8 @@ ul {
 .product-card {
   box-sizing: border-box;
   background-color: #ffffff;
-  width: 100%;
   max-width: 200px;
+  min-width: 150px;
   height: 330px;
   box-shadow: 0px 1px 8px 0px #dee2e6;
   display: flex;
@@ -96,12 +97,14 @@ ul {
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+  flex: 0 0 auto;
 }
 
 .product-image {
   width: 100%;
   max-width: 150px;
   aspect-ratio: 1/1;
+  object-fit: cover;
 }
 
 .product-image_container {
@@ -156,4 +159,38 @@ ul {
   display: flex;
   align-items: baseline;
   gap: 10px;
+}
+
+.px50-bold {
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #9775fa;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-container {
+  width: 100%;
+  background-color: #ffffff;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: static;
+  transform: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
