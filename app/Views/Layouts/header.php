@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="homePage/homePage.css">
     <link rel="stylesheet" href="cart/cart.css">
     <link rel="stylesheet" href="footer/footer.css">
+    <link rel="stylesheet" href="registerPage/register.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,12 +43,17 @@
                         <span class="material-symbols-outlined search">search</span>
                     </div>
                 </div>
-
+                <?php if (session()->get('isLoggedIn')) : ?>
+                <a href="/profile" class="profile header-buttons">
+                    <span class="material-symbols-outlined header-icons">person</span>
+                    <span class="hyperlink"><?= session()->get('firstname') ?> <?= session()->get('lastname') ?></span>
+                    <a href="/logout" class="profile header-buttons">TEMPORARY LOGOUT</a>
+                <?php else : ?>
                 <a href="/register" class="profile header-buttons">
                     <span class="material-symbols-outlined header-icons">person</span>
                     <span class="hyperlink">Ienākt / Reģistrēties</span>
+                <?php endif; ?>
                 </a>
-
                 <a href="/cart" class="cart header-buttons">
                     <div class="cart-container">
                         <span class="material-symbols-outlined header-icons cart-icon">shopping_cart</span>

@@ -194,3 +194,30 @@ ul {
     transform: rotate(360deg);
   }
 }
+
+.main-input {
+  background-color: #f1f3f5;
+  color: #000000;
+  padding: 8px;
+  padding-left: 22px;
+  border: 1px solid;
+  border-color: #adb5bd;
+  border-radius: 8px;
+}
+
+.main-input:focus {
+  background-color: #ffffff;
+  outline: none;
+}
+
+.main-input:disabled {
+  color: #868e96;
+}
+
+.input-text {
+  margin-bottom: 10px;
+}
+
+.form-error {
+  color: #ff0000;
+}
