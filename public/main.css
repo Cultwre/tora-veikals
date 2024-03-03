@@ -26,6 +26,7 @@ ul {
   color: #868e96;
   font-weight: 600;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .hyperlink:hover {
@@ -220,4 +221,8 @@ ul {
 
 .form-error {
   color: #ff0000;
+}
+
+.hidden {
+  display: none;
 }

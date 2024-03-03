@@ -10,10 +10,11 @@ class Register extends BaseController
     public function index(): string
     {   
         $footerCategories = $this->footerCategories;
+        $allCategories = json_encode($this->allCategories);
 
         // $footerContent = view('Layouts/footer', compact('footerCategories'));
         $cartContent = view('Layouts/cart');
-        $navbarContent = view('Layouts/navbar');
+        $navbarContent = view('Layouts/navbar', compact('footerCategories', 'allCategories'));
     
         return view('Layouts/header', compact('navbarContent'))
             . view('Main/registerPage')

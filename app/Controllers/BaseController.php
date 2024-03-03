@@ -57,7 +57,8 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
         $model = model(CategoriesModel::class);
-
         $this->footerCategories = $model->getParentCategories();
+
+        $this->allCategories = $model->getAllCategories();
     }
 }

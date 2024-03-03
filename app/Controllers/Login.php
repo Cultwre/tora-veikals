@@ -10,9 +10,10 @@ class Login extends BaseController
     public function index(): string
     {   
         $footerCategories = $this->footerCategories;
+        $allCategories = json_encode($this->allCategories);
         
         $cartContent = view('Layouts/cart');
-        $navbarContent = view('Layouts/navbar');
+        $navbarContent = view('Layouts/navbar', compact('footerCategories', 'allCategories'));
     
         return view('Layouts/header', compact('navbarContent'))
             . view('Main/loginPage')

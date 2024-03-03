@@ -11,7 +11,16 @@ class CategoriesModel extends Model
 
     public function getParentCategories()
     {
-        $sql = "SELECT category_name FROM product_categories WHERE parent_category IS NULL";
+        $sql = "SELECT id, category_name FROM product_categories WHERE parent_category IS NULL";
+
+        $query = $this->db->query($sql);
+
+        return $query->getResult();
+    }
+
+    public function getAllCategories()
+    {
+        $sql = "SELECT id, parent_category, category_name FROM product_categories";
 
         $query = $this->db->query($sql);
 

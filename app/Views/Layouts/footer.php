@@ -49,5 +49,7 @@
 <script src="homePage/homePage.js"></script>
 <!-- <script src="registerPage/register.js"></script> -->
 <!-- <script src="loginPage/login.js"></script> -->
+<script src="header/header.js"></script>
+<script src="navbar/navbar.js"></script>
 </body>
 </html>
