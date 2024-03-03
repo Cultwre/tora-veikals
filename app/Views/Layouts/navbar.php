@@ -5,10 +5,10 @@
                 <span class="material-symbols-outlined">grid_view</span>
                 <span class="hyperlink">Visas preces</span>
             </a>
-            <div class="categoryContainer">
-            <?php foreach ($footerCategories as $category): ?>
-            <div dataset="<?= $category->id; ?>" class='hyperlink'><?= $category->category_name; ?></div>
-            <?php endforeach; ?>
+            <div class="categoriesWrapper">
+                <div class="category-dropdown categoryContainer"></div>
+                <div class="category-dropdown second-categoryContainer"></div>
+                <div class="category-dropdown third-categoryContainer"></div>
             </div>
             <a href="/catalog" class="row-with-gap">
                 <span class="material-symbols-outlined">savings</span>

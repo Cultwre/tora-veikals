@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class CategoriesModel extends Model
 {
     protected $table = 'product_categories';
-    protected $allowedFields = ['id', 'parent_category', 'category_name'];
+    protected $allowedFields = ['id', 'parent_category', 'subparent_category', 'category_name'];
 
     public function getParentCategories()
     {
@@ -20,7 +20,7 @@ class CategoriesModel extends Model
 
     public function getAllCategories()
     {
-        $sql = "SELECT id, parent_category, category_name FROM product_categories";
+        $sql = "SELECT * FROM product_categories";
 
         $query = $this->db->query($sql);
 
