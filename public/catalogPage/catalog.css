@@ -50,3 +50,33 @@
   align-items: center;
   justify-content: center;
 }
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.catalog-title {
+  font-size: 40px;
+}
+
+.header-filtering {
+  display: flex;
+  gap: 20px;
+}
+
+.catalog-header_filtering {
+  height: 40px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 8px;
+}
+
+.product-count {
+  width: 90px;
+}
+
+.product-filtering {
+  width: 230px;
+}

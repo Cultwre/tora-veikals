@@ -56,4 +56,4 @@
         </div>
     </div>
 </div>
-<script src="registerPage/register.js"></script>
+<script src="<?php echo base_url("registerPage/register.js");?>"></script>

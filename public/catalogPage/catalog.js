@@ -1,17 +1,22 @@
 const productsCatalog = document.querySelector(`.products-catalog`);
 const productsPagination = document.querySelector(`.products-pagination`);
+const productCountFilter = document.querySelector(`#product_count`);
+const productFiltering = document.querySelector(`#product_filtering`);
+
+console.log("Pathname:", window.location.pathname);
 
 let page = 1;
-let limit = 1;
+let limit = 20;
+let filtering = "default";
 
-async function fetchProducts(page, limit) {
+async function fetchProducts(page, limit, filtering) {
   try {
-    const response = await fetch(`${baseUrl}getProducts`, {
+    const response = await fetch(`${baseUrl}catalog`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ page, limit }),
+      body: JSON.stringify({ page, limit, filtering }),
     });
 
     if (!response.ok) {
@@ -19,16 +24,18 @@ async function fetchProducts(page, limit) {
     }
     const data = await response.json();
     showProducts(data.products);
-
+    console.log(data.products);
     if (data.totalProducts > limit) {
       createPagination(data.totalProducts, page, limit);
+    } else {
+      removePagination();
     }
   } catch (error) {
     console.error("Error fetching products:", error);
   }
 }
 
-fetchProducts(page, limit);
+fetchProducts(page, limit, filtering);
 
 function showProducts(products) {
   productsCatalog.innerHTML = ``;
@@ -53,7 +60,7 @@ function showProducts(products) {
         e.unit_id
       }</span>
           </div>
-          <button type="button" class="main-button product-card_button">Ielīkt grozā</button>
+          <button type="button" class="main-button product-card_button">Ielikt grozā</button>
       </div>
       `;
 
@@ -71,7 +78,7 @@ function showProducts(products) {
         e.unit_id
       }</span>
           </div>
-          <button type="button" class="main-button product-card_button">Ielīkt grozā</button>
+          <button type="button" class="main-button product-card_button">Ielikt grozā</button>
       </div>
       `;
 
@@ -149,6 +156,10 @@ function createPagination(totalProducts, page, limit) {
   addFunctionality(currentPage);
 }
 
+function removePagination() {
+  productsPagination.innerHTML = ``;
+}
+
 function disableButtons(currentPage, lastPage) {
   [...document.querySelectorAll(`.pagination-button`)]
     .find((e) => +e.textContent === currentPage)
@@ -190,19 +201,19 @@ function addFunctionality(currentPage) {
     if (e.classList.contains(`prevButton`)) {
       e.addEventListener(`click`, (el) => {
         page = --currentPage;
-        fetchProducts(page, limit);
+        fetchProducts(page, limit, filtering);
         smoothScrollingTop();
       });
     } else if (e.classList.contains(`nextButton`)) {
       e.addEventListener(`click`, (el) => {
         page = ++currentPage;
-        fetchProducts(page, limit);
+        fetchProducts(page, limit, filtering);
         smoothScrollingTop();
       });
     } else if (e.dataset.id) {
       e.addEventListener(`click`, (el) => {
         page = +e.dataset.id;
-        fetchProducts(page, limit);
+        fetchProducts(page, limit, filtering);
         smoothScrollingTop();
       });
     }
@@ -215,3 +226,17 @@ function smoothScrollingTop() {
     behavior: "smooth",
   });
 }
+
+productCountFilter.addEventListener("change", (e) => {
+  const selectedCount = e.target.value;
+  limit = +selectedCount;
+  page = 1;
+  fetchProducts(page, limit, filtering);
+});
+
+productFiltering.addEventListener("change", (e) => {
+  const selectedFiltering = e.target.value;
+  filtering = selectedFiltering;
+  page = 1;
+  fetchProducts(page, limit, filtering);
+});

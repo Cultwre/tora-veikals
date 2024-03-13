@@ -94,7 +94,7 @@ const showDiscountProducts = async function (arrayOfProducts) {
       e.unit_id
     }</span>
         </div>
-        <button type="button" class="main-button product-card_button">Ielīkt grozā</button>
+        <button type="button" class="main-button product-card_button">Ielikt grozā</button>
     </div>
     `;
 

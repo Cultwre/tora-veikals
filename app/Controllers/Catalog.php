@@ -21,7 +21,7 @@ class Catalog extends BaseController
             . view('Layouts/footer', compact('footerCategories'));
     }
 
-    public function getProducts()
+    public function getProducts($category = null)
     {   
         $productsModel = model(ProductsModel::class);
         $unitsModel = model(UnitsModel::class);
@@ -34,6 +34,7 @@ class Catalog extends BaseController
         $page = $jsonData->page;
         $limit = $jsonData->limit;
         $offset = ($page - 1) * $limit;
+        $filtering = $jsonData->filtering;
         
         $this->products = $productsModel->getLimitProducts($limit, $offset);
         $products = $this->products;
@@ -122,6 +123,25 @@ class Catalog extends BaseController
                 $product->discount_id = null;
             }
         }       
+
+        switch ($filtering) {
+            case 'highest-first':
+                usort($products, function ($a, $b) {
+                    $priceA = $a->discount_id ? $a->price - ($a->discount_id * $a->price) : $a->price;
+                    $priceB = $b->discount_id ? $b->price - ($b->discount_id * $b->price) : $b->price;
+                    return floatval($priceB) <=> floatval($priceA); // Sort in descending order for highest first
+                });
+                break;
+            case 'lowest-first':
+                usort($products, function ($a, $b) {
+                    $priceA = $a->discount_id ? $a->price - ($a->discount_id * $a->price) : $a->price;
+                    $priceB = $b->discount_id ? $b->price - ($b->discount_id * $b->price) : $b->price;
+                    return floatval($priceA) <=> floatval($priceB); // Sort in ascending order for lowest first
+                });
+                break;
+            default:
+                break;
+        }
     
         $this->response->setContentType('application/json');
 

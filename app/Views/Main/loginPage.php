@@ -32,4 +32,4 @@
         </div>
     </div>
 </div>
-<script src="loginPage/login.js"></script>
+<script src="<?php echo base_url("loginPage/login.js");?>"></script>

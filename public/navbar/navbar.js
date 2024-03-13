@@ -14,14 +14,14 @@ allCategories.forEach((e) => {
   if (e.parent_category === null && hasChildCategories(e.id)) {
     let categoryHtmlWithIcon = `
     <div class="category_with_children">
-        <div data-id="${e.id}" id="mainCategory categ-${e.id}" class='hyperlink'>${e.category_name}</div>
-        <span class="material-symbols-outlined">chevron_right</span>
-    </div>
+      <a href="/catalog/${e.url_name}" data-id="${e.id}" id="mainCategory categ-${e.id}" class='hyperlink'>${e.category_name}</a>
+      <span class="material-symbols-outlined">chevron_right</span>
+  </div>
     `;
     categoryMenu.insertAdjacentHTML("beforeend", categoryHtmlWithIcon);
   } else if (e.parent_category === null) {
     let categoryHtmlBasic = `
-    <div data-id="${e.id}" id="mainCategory categ-${e.id}" class='hyperlink'>${e.category_name}</div>
+    <a href="/catalog/${e.url_name}" data-id="${e.id}" id="mainCategory categ-${e.id}" class='hyperlink'>${e.category_name}</a>
     `;
     categoryMenu.insertAdjacentHTML("beforeend", categoryHtmlBasic);
   }
@@ -40,7 +40,7 @@ categoriesWithChildrens.forEach((e) => {
       if (el3.subparent_category === null && hasSubChildCategories(el3.id)) {
         let childCategoryHtmlWithChildren = `
         <div class="second-category_with_children">
-            <div data-id="${el3.id}" id="secondCategory categ-${el3.id}" class='hyperlink'>${el3.category_name}</div>
+            <a href="/catalog/${el3.url_name}" data-id="${el3.id}" id="secondCategory categ-${el3.id}" class='hyperlink'>${el3.category_name}</a>
             <span class="material-symbols-outlined">chevron_right</span>
         </div>
         `;
@@ -50,7 +50,7 @@ categoriesWithChildrens.forEach((e) => {
         );
       } else if (el3.subparent_category === null) {
         let childCategoryHtmlBasic = `
-        <div data-id="${el3.id}" id="secondCategory categ-${el3.id}" class='hyperlink'>${el3.category_name}</div>
+        <a href="/catalog/${el3.url_name}" data-id="${el3.id}" id="secondCategory categ-${el3.id}" class='hyperlink'>${el3.category_name}</a>
         `;
         secondCategoryMenu.insertAdjacentHTML(
           "beforeend",
@@ -68,7 +68,7 @@ categoriesWithChildrens.forEach((e) => {
         let childCategories = getSubObjectsById(e.children[0].dataset.id);
         childCategories.forEach((el3) => {
           let childCategoryHtmlBasic = `
-            <div data-id="${el3.id}" id="thirdCategory categ-${el3.id}" class='hyperlink'>${el3.category_name}</div>
+            <a href="/catalog/${el3.url_name}" data-id="${el3.id}" id="thirdCategory categ-${el3.id}" class='hyperlink'>${el3.category_name}</a>
             `;
           thirdCategoryMenu.insertAdjacentHTML(
             "beforeend",

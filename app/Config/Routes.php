@@ -24,8 +24,11 @@ $routes->post('login', [Login::class, 'login']);
 
 $routes->get('cart', [CartPage::class, 'index']);
 
-$routes->get('catalog', [Catalog::class, 'index']);
-// $routes->get('getProducts', [Catalog::class, 'getProducts']);
-$routes->post('getProducts', [Catalog::class, 'getProducts']);
+// $routes->get('catalog', [Catalog::class, 'index']);
+// // $routes->get('getProducts', [Catalog::class, 'getProducts']);
+// $routes->post('getProducts', [Catalog::class, 'getProducts']);
+$routes->get('catalog(:any)', [Catalog::class, 'index']);
+$routes->post('catalog', [Catalog::class, 'getProducts']); // Route for filtering without category
+$routes->post('catalog/(:segment)', [Catalog::class, 'getProducts']); // Route for filtering with category
 
 $routes->get('logout', [Header::class, 'index']);

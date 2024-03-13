@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tora e-veikals</title>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="header/header.css">
-    <link rel="stylesheet" href="navbar/navbar.css">
-    <link rel="stylesheet" href="homePage/homePage.css">
-    <link rel="stylesheet" href="cart/cart.css">
-    <link rel="stylesheet" href="footer/footer.css">
-    <link rel="stylesheet" href="registerPage/register.css">
-    <link rel="stylesheet" href="catalogPage/catalog.css">
+    <link rel="stylesheet" href="<?php echo base_url('main.css');?>">
+    <link rel="stylesheet" href="<?php echo base_url("header/header.css");?>">
+    <link rel="stylesheet" href="<?php echo base_url("navbar/navbar.css");?>">
+    <link rel="stylesheet" href="<?php echo base_url("homePage/homePage.css");?>">
+    <link rel="stylesheet" href="<?php echo base_url("cart/cart.css");?>">
+    <link rel="stylesheet" href="<?php echo base_url("footer/footer.css");?>">
+    <link rel="stylesheet" href="<?php echo base_url("registerPage/register.css");?>">
+    <link rel="stylesheet" href="<?php echo base_url("catalogPage/catalog.css");?>">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

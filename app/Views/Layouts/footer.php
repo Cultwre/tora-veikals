@@ -44,12 +44,12 @@
         </div>
     </div>
 </footer>
-<script src="cart/cart.js"></script>
+<script src="<?php echo base_url("cart/cart.js");?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="homePage/homePage.js"></script>
-<!-- <script src="registerPage/register.js"></script> -->
+<script src="<?php echo base_url("homePage/homePage.js");?>"></script>
+<!-- <script src="<?php echo base_url("registerPage/register.js");?>"></script> -->
 <!-- <script src="loginPage/login.js"></script> -->
-<script src="header/header.js"></script>
-<script src="navbar/navbar.js"></script>
+<script src="<?php echo base_url("header/header.js");?>"></script>
+<script src="<?php echo base_url("navbar/navbar.js");?>"></script>
 </body>
 </html>
