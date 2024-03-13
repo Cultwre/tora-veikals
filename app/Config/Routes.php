@@ -23,6 +23,9 @@ $routes->get('login', [Login::class, 'index']);
 $routes->post('login', [Login::class, 'login']);
 
 $routes->get('cart', [CartPage::class, 'index']);
+
 $routes->get('catalog', [Catalog::class, 'index']);
+// $routes->get('getProducts', [Catalog::class, 'getProducts']);
+$routes->post('getProducts', [Catalog::class, 'getProducts']);
 
 $routes->get('logout', [Header::class, 'index']);

@@ -10,8 +10,6 @@ const mainCategoryCount = allCategories.filter(
 
 let subCategoriesWithChildrens;
 
-console.log(allCategories);
-
 allCategories.forEach((e) => {
   if (e.parent_category === null && hasChildCategories(e.id)) {
     let categoryHtmlWithIcon = `

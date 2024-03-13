@@ -226,3 +226,7 @@ ul {
 .hidden {
   display: none;
 }
+
+.white-text {
+  color: white;
+}

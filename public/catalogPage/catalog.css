@@ -1,0 +1,52 @@
+.catalog-page {
+  width: 100%;
+  background-color: #e9ecef;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+}
+
+.catalog-filter {
+  max-width: 300px;
+  width: 100%;
+  height: 500px;
+  background-color: white;
+}
+
+.catalog-products {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  max-width: 1000px;
+}
+
+.products-catalog {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 10px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.x4-products_in-a-row {
+  width: calc(25% - 20px);
+  max-width: 100%;
+}
+
+.products-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination-button {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
