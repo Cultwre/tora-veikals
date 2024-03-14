@@ -3,15 +3,16 @@ const productsPagination = document.querySelector(`.products-pagination`);
 const productCountFilter = document.querySelector(`#product_count`);
 const productFiltering = document.querySelector(`#product_filtering`);
 
-console.log("Pathname:", window.location.pathname);
+const urlPath = window.location.pathname;
+const trimmedUrlPath = urlPath.substring("/catalog".length);
 
 let page = 1;
 let limit = 20;
 let filtering = "default";
 
-async function fetchProducts(page, limit, filtering) {
+async function fetchProducts(page, limit, filtering, urlPath) {
   try {
-    const response = await fetch(`${baseUrl}catalog`, {
+    const response = await fetch(`${baseUrl}catalog${urlPath}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +36,7 @@ async function fetchProducts(page, limit, filtering) {
   }
 }
 
-fetchProducts(page, limit, filtering);
+fetchProducts(page, limit, filtering, trimmedUrlPath);
 
 function showProducts(products) {
   productsCatalog.innerHTML = ``;
@@ -201,19 +202,19 @@ function addFunctionality(currentPage) {
     if (e.classList.contains(`prevButton`)) {
       e.addEventListener(`click`, (el) => {
         page = --currentPage;
-        fetchProducts(page, limit, filtering);
+        fetchProducts(page, limit, filtering, trimmedUrlPath);
         smoothScrollingTop();
       });
     } else if (e.classList.contains(`nextButton`)) {
       e.addEventListener(`click`, (el) => {
         page = ++currentPage;
-        fetchProducts(page, limit, filtering);
+        fetchProducts(page, limit, filtering, trimmedUrlPath);
         smoothScrollingTop();
       });
     } else if (e.dataset.id) {
       e.addEventListener(`click`, (el) => {
         page = +e.dataset.id;
-        fetchProducts(page, limit, filtering);
+        fetchProducts(page, limit, filtering, trimmedUrlPath);
         smoothScrollingTop();
       });
     }
@@ -231,12 +232,12 @@ productCountFilter.addEventListener("change", (e) => {
   const selectedCount = e.target.value;
   limit = +selectedCount;
   page = 1;
-  fetchProducts(page, limit, filtering);
+  fetchProducts(page, limit, filtering, trimmedUrlPath);
 });
 
 productFiltering.addEventListener("change", (e) => {
   const selectedFiltering = e.target.value;
   filtering = selectedFiltering;
   page = 1;
-  fetchProducts(page, limit, filtering);
+  fetchProducts(page, limit, filtering, trimmedUrlPath);
 });

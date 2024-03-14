@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\ProductsModel;
 use App\Models\UnitsModel;
 use App\Models\DiscountsModel;
+use App\Models\CategoriesModel;
 
 class Catalog extends BaseController
 {
@@ -15,31 +17,61 @@ class Catalog extends BaseController
 
         $cartContent = view('Layouts/cart');
         $navbarContent = view('Layouts/navbar', compact('footerCategories', 'allCategories'));
-    
+
+        if (!$this->isValidUrl($_SERVER['REQUEST_URI'])) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
         return view('Layouts/header', compact('navbarContent'))
             . view('Main/catalogPage', compact('cartContent'))
             . view('Layouts/footer', compact('footerCategories'));
     }
 
-    public function getProducts($category = null)
+    public function getProducts($category = null, $category2 = null, $category3 = null)
     {   
         $productsModel = model(ProductsModel::class);
         $unitsModel = model(UnitsModel::class);
         $discountsModel = model(DiscountsModel::class);
+        $categoriesModel = model(CategoriesModel::class);
     
         // $this->products = $productsModel->getAllProducts();
         // $products = $this->products;
+
+        $fullPath = '';
+        if ($category !== null) {
+            $fullPath .= $category;
+        }
+        if ($category2 !== null) {
+            $fullPath.= '/' . $category2;
+        }
+        if ($category3 !== null) {
+            $fullPath .= '/' . $category3;
+        }
 
         $jsonData = $this->request->getJSON();
         $page = $jsonData->page;
         $limit = $jsonData->limit;
         $offset = ($page - 1) * $limit;
         $filtering = $jsonData->filtering;
-        
-        $this->products = $productsModel->getLimitProducts($limit, $offset);
-        $products = $this->products;
-        $this->totalProducts = $productsModel->countAllProducts();
-        $totalProducts = $this->totalProducts;
+        $products = [];
+        $totalProducts = 0;
+
+        if ($fullPath  === "all" || $fullPath  === null) {
+            $this->products = $productsModel->getLimitProducts($limit, $offset);
+            $products = $this->products;
+
+            $this->totalProducts = $productsModel->countAllProducts();
+            $totalProducts = $this->totalProducts;
+        } else if ($fullPath !== null) {
+            $this->categoriesId =  $categoriesModel->getCategoryIdByUrl($fullPath);
+            $categoriesId =  $this->categoriesId;
+
+            $this->products = $productsModel->getLimitProducts($limit, $offset, $categoriesId);
+            $products = $this->products;
+
+            $this->totalProducts = $productsModel->countAllProducts($categoriesId);
+            $totalProducts = $this->totalProducts;
+        }
     
         $units = $unitsModel->getUnits();
         $discounts = $discountsModel->getDiscounts();
@@ -147,10 +179,27 @@ class Catalog extends BaseController
 
         $data = array(
             'products' => $products,
-            'totalProducts' => $totalProducts
+            'totalProducts' => $totalProducts,
         );
         
         // return $this->response->setJSON($products);
         return $this->response->setJSON($data);
     }
+
+    private function isValidUrl($requestedUrl)
+    {   
+        $categoriesModel = model(CategoriesModel::class); 
+
+        $this->validUrls = $categoriesModel->getAllUrls();
+        $validUrls = $this->validUrls;
+
+        $validUrlsWithCatalogPrefix = array_map(function($urlObject) {
+            return '/catalog/' . $urlObject->url_name;
+        }, $validUrls);
+
+        $validUrlsWithCatalogPrefix[] = '/catalog/all';
+    
+        return in_array($requestedUrl, $validUrlsWithCatalogPrefix);
+    }
 }
+

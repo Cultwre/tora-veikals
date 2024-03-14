@@ -29,6 +29,8 @@ $routes->get('cart', [CartPage::class, 'index']);
 // $routes->post('getProducts', [Catalog::class, 'getProducts']);
 $routes->get('catalog(:any)', [Catalog::class, 'index']);
 $routes->post('catalog', [Catalog::class, 'getProducts']); // Route for filtering without category
-$routes->post('catalog/(:segment)', [Catalog::class, 'getProducts']); // Route for filtering with category
+$routes->post('catalog/(:any)', [Catalog::class, 'getProducts']);
+$routes->post('catalog/(:any)(:any)', [Catalog::class, 'getProducts']);
+$routes->post('catalog/(:any)(:any)(:any)', [Catalog::class, 'getProducts']);
 
 $routes->get('logout', [Header::class, 'index']);
