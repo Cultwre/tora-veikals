@@ -78,9 +78,11 @@ const showDiscountProducts = async function (arrayOfProducts) {
   arrayOfProducts.forEach((e) => {
     let discountHtml = `
     <div class="swiper-slide product-card x5-products_in-a-row">
+        <a href="/product/${e.id}">
         <div class="product-image_container">
             <img src="${e.image_url}" class="product-image">
         </div>
+        </a>
         <span class="product-name overflow-ellipsis">${e.product_name}</span>
         <div class="product-prices">
             <div class="product-price_discount">

@@ -13,6 +13,7 @@ use App\Controllers\Login;
 use App\Controllers\CartPage;
 use App\Controllers\Catalog;
 use App\Controllers\Header;
+use App\Controllers\ProductView;
 
 $routes->get('getProductsWithDisc', [Home::class, 'getProductsWithDisc']);
 
@@ -32,5 +33,8 @@ $routes->post('catalog', [Catalog::class, 'getProducts']); // Route for filterin
 $routes->post('catalog/(:any)', [Catalog::class, 'getProducts']);
 $routes->post('catalog/(:any)(:any)', [Catalog::class, 'getProducts']);
 $routes->post('catalog/(:any)(:any)(:any)', [Catalog::class, 'getProducts']);
+
+$routes->get('product/(:any)', [ProductView::class, 'index']);
+$routes->post('product/(:any)', [ProductView::class, 'getProductInfo']);
 
 $routes->get('logout', [Header::class, 'index']);

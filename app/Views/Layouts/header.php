@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<?php echo base_url("footer/footer.css");?>">
     <link rel="stylesheet" href="<?php echo base_url("registerPage/register.css");?>">
     <link rel="stylesheet" href="<?php echo base_url("catalogPage/catalog.css");?>">
+    <link rel="stylesheet" href="<?php echo base_url("productPage/product.css");?>">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

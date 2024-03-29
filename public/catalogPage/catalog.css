@@ -11,8 +11,12 @@
 .catalog-filter {
   max-width: 300px;
   width: 100%;
-  height: 500px;
+  height: fit-content;
+  padding: 10px;
+  box-sizing: border-box;
   background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .catalog-products {
@@ -79,4 +83,96 @@
 
 .product-filtering {
   width: 230px;
+}
+
+.filter-category {
+  cursor: default;
+}
+
+.filter-category:hover {
+  color: #868e96;
+}
+
+.main-category {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub {
+  margin-left: 20px;
+}
+
+.sub2 {
+  margin-left: 40px;
+}
+
+.hidden {
+  display: none;
+}
+
+.main-category_checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#show_dropdown {
+  cursor: pointer;
+}
+
+.price_filter {
+  width: 90px;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.price-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.range-slider {
+  height: 15px;
+  position: relative;
+  background-color: #d9d9d9;
+  border-radius: 15px;
+}
+
+.range-selected {
+  height: 100%;
+  left: 0%;
+  right: 0%;
+  position: absolute;
+  border-radius: 15px;
+  background-color: #9775fa;
+}
+
+.range-input {
+  position: relative;
+}
+
+.range-input input {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -10px;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.range-input input::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  pointer-events: auto;
+  -webkit-appearance: none;
+}
+
+.range {
+  margin-top: 10px;
 }

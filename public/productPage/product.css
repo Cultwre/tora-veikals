@@ -1,0 +1,101 @@
+.product-container {
+  max-width: 1100px;
+  height: fit-content;
+  background-color: #ffffff;
+  width: 100%;
+  border-top: 5px solid;
+  border-color: #9775fa;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container-title {
+  max-width: 1100px;
+  width: 100%;
+}
+
+.product-page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.image-of-product {
+  width: 300px;
+  height: 300px;
+}
+
+.product-image-view {
+  width: 300px;
+  height: 300px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.product-overview {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.product-prices-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-main_info {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.view_price {
+  font-size: 32px;
+  height: fit-content;
+}
+
+.view_price_discount {
+  height: 32px;
+}
+
+.view_price-per-unit {
+  font-size: 24px;
+}
+
+.product_view-button {
+  width: 300px;
+  height: 50px;
+  font-size: 30px;
+}
+
+.info_of-product {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product_view_hr {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.nutrition_table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Alternate row colors */
+.nutrition_table tr:nth-child(odd) {
+  background-color: #fff; /* White background for odd rows */
+}
+
+.nutrition_table tr:nth-child(even) {
+  background-color: #dee2e6; /* Gray background for even rows */
+}
+
+/* Hide borders */
+.nutrition_table td {
+  border: none;
+}
