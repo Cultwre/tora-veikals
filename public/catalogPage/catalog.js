@@ -1,3 +1,5 @@
+import { addToCart } from "../cartFunctionality.js";
+
 const productsCatalog = document.querySelector(`.products-catalog`);
 const productsPagination = document.querySelector(`.products-pagination`);
 const productCountFilter = document.querySelector(`#product_count`);
@@ -89,7 +91,9 @@ function showProducts(products) {
         e.unit_name
       }</span>
           </div>
-          <button type="button" class="main-button product-card_button">Ielikt grozā</button>
+          <button type="button" id="product-${
+            e.id
+          }" class="main-button product-card_button">Ielikt grozā</button>
       </div>
       `;
 
@@ -109,12 +113,28 @@ function showProducts(products) {
         e.unit_name
       }</span>
           </div>
-          <button type="button" class="main-button product-card_button">Ielikt grozā</button>
+          <button type="button" id="product-${
+            e.id
+          }" class="main-button product-card_button">Ielikt grozā</button>
       </div>
       `;
 
       productsCatalog.insertAdjacentHTML("beforeend", productCardHtml);
     }
+  });
+
+  let cartBtns = document.querySelectorAll(".product-card_button");
+
+  cartBtns.forEach((e) => {
+    console.log(e);
+
+    e.addEventListener("click", (e) => {
+      const productId = parseInt(e.target.id.match(/\d+/)[0]);
+      addToCart(productId);
+
+      const addToCartEvent = new CustomEvent("productAddedToCart");
+      document.dispatchEvent(addToCartEvent);
+    });
   });
 }
 

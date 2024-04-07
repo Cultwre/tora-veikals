@@ -1,0 +1,142 @@
+.products-container {
+  width: 700px;
+  min-height: 600px;
+  background-color: #ffffff;
+  border-top: 5px solid #9775fa;
+  box-sizing: border-box;
+}
+
+.cart-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-products {
+  text-align: left;
+  width: 100%;
+}
+
+.cart-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: center;
+}
+
+.products {
+  max-width: 700px;
+  width: 100%;
+}
+
+.header-text {
+  font-size: 40px;
+}
+
+.cartPage-layout {
+  justify-content: center;
+}
+
+.buy-container {
+  width: 450px;
+  height: fit-content;
+  background-color: #ffffff;
+  border-top: 5px solid #9775fa;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.header-buy-text {
+  font-size: 24px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 24px;
+}
+
+.cart-buttons {
+  width: 100%;
+  height: 50px;
+}
+
+.but-button {
+  width: 100%;
+}
+
+.clean-cart {
+  width: 100%;
+}
+
+.cart-page-container {
+  width: 100%;
+  height: 90px;
+  border-bottom: 1px solid #9775fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+
+.cart-page-image {
+  width: 80px;
+  height: 80px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.cart-page-name_price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cart-page-info {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.cart-page-name {
+  font-size: 15px;
+}
+
+.cart-page-price_per_unit {
+  font-size: 14px;
+  color: #868e96;
+}
+
+.cart-page-controll_quantity {
+  width: 140px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-product-price {
+  font-size: 24px;
+}
+
+.cart-page-price {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.cart-remove {
+  width: 120px;
+  height: 30px;
+}
+
+.cart-page-name_price {
+  width: 150px;
+}

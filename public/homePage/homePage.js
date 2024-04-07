@@ -1,3 +1,5 @@
+import { addToCart } from "../cartFunctionality.js";
+
 const discountContainer = document.querySelector(`.discount-show`);
 const slideToRight = document.querySelector(`.slider_to-right`);
 const slideToLeft = document.querySelector(`.slider_to-left`);
@@ -96,11 +98,25 @@ const showDiscountProducts = async function (arrayOfProducts) {
       e.unit_id
     }</span>
         </div>
-        <button type="button" class="main-button product-card_button">Ielikt grozā</button>
+        <button type="button" class="main-button product-card_button" id="product-${
+          e.id
+        }">Ielikt grozā</button>
     </div>
     `;
 
     swiperWrapper.insertAdjacentHTML("beforeend", discountHtml);
+  });
+
+  let cartBtns = document.querySelectorAll(".product-card_button");
+
+  cartBtns.forEach((e) => {
+    e.addEventListener("click", (e) => {
+      const productId = parseInt(e.target.id.match(/\d+/)[0]);
+      addToCart(productId);
+
+      const addToCartEvent = new CustomEvent("productAddedToCart");
+      document.dispatchEvent(addToCartEvent);
+    });
   });
 };
 

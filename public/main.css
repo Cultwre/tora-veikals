@@ -281,3 +281,11 @@ input[type="checkbox"]:hover {
   height: 2px;
   margin: 10px;
 }
+
+.pointer-none {
+  cursor: default;
+}
+
+.pointer-none:hover {
+  color: #868e96;
+}
