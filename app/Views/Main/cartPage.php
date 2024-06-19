@@ -29,12 +29,30 @@
                     <span class="header-buy-text price-of-cart">0,00€</span>
                 </div>
                 <div class="but-button">
-                    <button type="button" class="main-button cart-buttons">Pirkt</button>
+                    <button type="button" class="main-button cart-buttons" id="openModalBtn">Pirkt</button>
                 </div>
                 <div class="clean-cart">
                     <button type="button" class="main-button cart-buttons remove-all-products">Dzēst produktus</button>
                 </div>
             </div>
         </div>
+        <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="font-modal">Pirms uzsākat maksāšanu, norādiet adresi, kur jūs saņemsiet produktus</span>
+                <span id="closeModalBtn" class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <input class="main-input fetch-address" type="text" id="address" name="address">
+                <div id="suggestions"></div>
+                <div id="result" class="form-error"></div>
+                <div class="modal-price">
+                    <span class="font-modal bold-font">Summa apmaksai</span>
+                    <span class="font-modal bold-font total-price">0,00€</span>
+                </div>
+                <button type="button" class="main-button cart-buttons confirm-shipping">Pirkt</button>
+            </div>
+        </div>
+    </div>
     </div>
 </div>

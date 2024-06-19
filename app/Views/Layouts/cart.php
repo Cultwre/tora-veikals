@@ -14,7 +14,7 @@
         </div>
         <div class="side-cart_footer">
             <div class="cart-price">
-                <span>Summa apmaksai</span>
+                <span>Groza summa</span>
                 <span id="cart-full_price">0,00€</span>
             </div> 
             <a href="/product-cart" class="cart-button">

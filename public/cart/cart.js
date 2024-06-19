@@ -88,14 +88,13 @@ function showProducts() {
                     }€/${e.unit_name}</span>
                   </div>
                 </div>
-                <span class="product-price">${
-                  e.discount_precentage
-                    ? (
-                        (e.price - e.discount_precentage * e.price).toFixed(2) *
-                        e.quantity
-                      ).toFixed(2)
-                    : e.price * e.quantity
-                }€</span>
+                <span class="product-price">${(e.discount_precentage
+                  ? (
+                      (e.price - e.discount_precentage * e.price).toFixed(2) *
+                      e.quantity
+                    ).toFixed(2)
+                  : e.price * e.quantity
+                ).toFixed(2)}€</span>
               </div>
               <div class="cart-product-controllers">
                 <div class="cart-controll_quantity">
