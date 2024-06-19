@@ -161,7 +161,9 @@ function showProducts() {
           );
           if (quantitySpan && fullPriceSpan) {
             quantitySpan.textContent = existingProduct.quantity;
-            fullPriceSpan.textContent = `${existingProduct.fullPrice}€`;
+            fullPriceSpan.textContent = `${existingProduct.fullPrice.toFixed(
+              2
+            )}€`;
           }
         }
 

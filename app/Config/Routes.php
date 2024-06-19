@@ -48,5 +48,12 @@ $routes->post('remove-all-products', [CartFunc::class, 'removeAllProducts']);
 $routes->get('get-from-cart', [CartFunc::class, 'getFromCart']);
 
 $routes->get('profile/info', [Profile::class, 'index']);
+$routes->get('profile/update', [Profile::class, 'updateProfileInfoView']);
+$routes->get('profile/update-password', [Profile::class, 'updateProfilePasswordView']);
 $routes->post('profile/logout', [Profile::class, 'logout']);
+
+$routes->post('profile/update-info', [Profile::class, 'updateProfileInfo']);
+$routes->post('profile/change-password', [Profile::class, 'updateProfilePassword']);
+
+$routes->post('search/product', [Header::class, 'searchForProducts']);
 

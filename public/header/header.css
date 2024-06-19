@@ -46,6 +46,7 @@ header {
   display: flex;
   align-items: center;
   /* border: 1px solid black; */
+  flex-direction: column;
 }
 
 .search-products:focus,
@@ -107,4 +108,57 @@ header {
   position: relative;
   display: inline-block;
   font-size: 24px; /* Adjust the font size as needed */
+}
+
+.result-wrapper {
+  position: absolute;
+  top: 45px;
+  left: -15vmin;
+  display: none;
+}
+
+.search-result_container {
+  box-sizing: border-box;
+  background-color: #ffffff;
+  width: 70vmin;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.first-products {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;
+  max-width: 1000px;
+  width: 100%;
+  justify-content: center;
+}
+
+.show-more_button {
+  height: 40px;
+  padding: 8px;
+}
+
+.show-more {
+  display: flex;
+  justify-content: center;
+  display: none;
+}
+
+.no-results {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.no-results-text {
+  font-size: 50px;
+  color: #868e96;
+  font-weight: 800;
 }

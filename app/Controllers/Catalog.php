@@ -18,9 +18,9 @@ class Catalog extends BaseController
         $cartContent = view('Layouts/cart');
         $navbarContent = view('Layouts/navbar', compact('footerCategories', 'allCategories'));
 
-        if (!$this->isValidUrl($_SERVER['REQUEST_URI'])) {
-            throw PageNotFoundException::forPageNotFound();
-        }
+        // if (!$this->isValidUrl($_SERVER['REQUEST_URI'])) {
+        //     throw PageNotFoundException::forPageNotFound();
+        // }
 
         return view('Layouts/header', compact('navbarContent'))
             . view('Main/catalogPage', compact('cartContent'))
@@ -37,6 +37,7 @@ class Catalog extends BaseController
         // $this->products = $productsModel->getAllProducts();
         // $products = $this->products;
 
+        
         $fullPath = '';
         if ($category !== null) {
             $fullPath .= $category;
@@ -65,22 +66,6 @@ class Catalog extends BaseController
         $priceLimit = $jsonData->priceLimit;
         $brands = $jsonData->brands;
 
-        // if ($fullPath  === "all" || $fullPath  === null) {
-        //     $this->products = $productsModel->getLimitProducts($limit, $offset);
-        //     $products = $this->products;
-
-        //     $this->totalProducts = $productsModel->countAllProducts();
-        //     $totalProducts = $this->totalProducts;
-        // } else if ($fullPath !== null) {
-        //     $this->categoriesIds =  $categoriesModel->getCategoryIdsBySlug($lastSegment);
-        //     $categoriesIds =  $this->categoriesIds;
-
-        //     $this->products = $productsModel->getLimitProducts($limit, $offset, $categoriesIds);
-        //     $products = $this->products;
-
-        //     $this->totalProducts = $productsModel->countAllProducts($categoriesIds);
-        //     $totalProducts = $this->totalProducts;
-        // }
 
         if ($fullPath  === "all" || $fullPath  === null) {
             $this->products = $productsModel->getRequestedProducts($limit, $offset, null, $filtering, $priceLimit, $brands);
@@ -90,6 +75,22 @@ class Catalog extends BaseController
 
             $this->totalProducts = $productsModel->countAllProducts(null, $priceLimit, $brands);
             $totalProducts = $this->totalProducts;
+
+        } else if ($fullPath !== null && strpos($fullPath, "search=") === 0) {
+            // Extract search query from $fullPath
+            $searchQuery = substr($fullPath, 7); // Remove "search=" part
+                
+            // You may want to URL decode the search query if needed
+            $searchQuery = urldecode($searchQuery);
+                
+            $this->products = $productsModel->getRequestedProducts($limit, $offset, null, $filtering, $priceLimit, $brands, $searchQuery);
+            $this->allProducts = $productsModel->getProductsByCategory();
+            $products = $this->products;
+            $allProducts = $this->allProducts;
+                
+            $this->totalProducts = $productsModel->countAllProducts(null, $priceLimit, $brands, $searchQuery);
+            $totalProducts = $this->totalProducts;
+
         } else if ($fullPath !== null) {
             $this->categoriesIds =  $categoriesModel->getCategoryIdsBySlug($lastSegment);
             $categoriesIds =  $this->categoriesIds;
@@ -108,110 +109,6 @@ class Catalog extends BaseController
         } else {
             $categoryName = $categoriesModel->getCategoryName($lastSegment);
         }
-
-
-    
-        // $units = $unitsModel->getUnits();
-        // $discounts = $discountsModel->getDiscounts();
-    
-        // function filterProductsByDiscounts($products, $discounts) {
-        //     // Create a lookup array for discounts using product_id as the key
-        //     $discountsLookup = [];
-        //     foreach ($discounts as $discount) {
-        //         $productId = $discount->product_id;
-        //         $discountsLookup[$productId][] = $discount;
-        //     }
-        
-        //     // Function to check if a product has valid discounts
-        //     function hasValidDiscounts($product, $discountsLookup) {
-        //         $productId = $product->id;
-        
-        //         if (isset($discountsLookup[$productId])) {
-        //             $discounts = $discountsLookup[$productId];
-        //             $today = strtotime('today');
-        
-        //             foreach ($discounts as $discount) {
-        //                 $endDate = strtotime($discount->end_date);
-        
-        //                 if ($endDate >= $today) {
-        //                     return true; // Product has at least one valid discount
-        //                 }
-        //             }
-        //         }
-        
-        //         return false; // Product has no valid discounts
-        //     }
-        
-        //     // Filter products to keep all products, including those with discount_id set to null
-        //     $filteredProducts = array_map(function ($product) use ($discountsLookup) {
-        //         $product->hasValidDiscounts = hasValidDiscounts($product, $discountsLookup);
-        //         return $product;
-        //     }, $products);
-        
-        //     // Return the filtered array
-        //     return $filteredProducts;
-        // }
-        
-        // $products = filterProductsByDiscounts($products, $discounts);
-    
-        // $unitsLookup = array_column($units, 'unit_name', 'id');
-        // $discountsLookup = [];
-
-        // foreach ($discounts as $discount) {
-        //     if (strtotime($discount->end_date) >= strtotime('today')) {
-        //         if (!isset($discountsLookup[$discount->product_id])) {
-        //             $discountsLookup[$discount->product_id] = [];
-        //         }
-    
-        //         $discountsLookup[$discount->product_id][] = $discount;
-        //     }
-        // }
-    
-        // foreach ($products as &$product) {
-        //     if (isset($unitsLookup[$product->unit_id])) {
-        //         $product->unit_id = $unitsLookup[$product->unit_id];
-        //     }
-    
-        //     if (isset($discountsLookup[$product->id])) {
-        //         $validDiscounts = $discountsLookup[$product->id];
-    
-        //         // Find the discount with the highest percentage
-        //         $highestPercentageDiscount = null;
-        //         foreach ($validDiscounts as $discount) {
-        //             if (!$highestPercentageDiscount || $discount->discount_precentage > $highestPercentageDiscount->discount_precentage) {
-        //                 $highestPercentageDiscount = $discount;
-        //             }
-        //         }
-    
-        //         // Choose the valid discount with the highest percentage
-        //         if ($highestPercentageDiscount && strtotime($highestPercentageDiscount->end_date) >= strtotime('today')) {
-        //             $product->discount_id = $highestPercentageDiscount->discount_precentage;
-        //         }
-        //     } else {
-        //         // If the product has no valid discounts, you can set default values or leave them as is
-        //         // Example: Set discount_id to 0 or null
-        //         $product->discount_id = null;
-        //     }
-        // }       
-
-        // switch ($filtering) {
-        //     case 'highest-first':
-        //         usort($products, function ($a, $b) {
-        //             $priceA = $a->discount_id ? $a->price - ($a->discount_id * $a->price) : $a->price;
-        //             $priceB = $b->discount_id ? $b->price - ($b->discount_id * $b->price) : $b->price;
-        //             return floatval($priceB) <=> floatval($priceA); // Sort in descending order for highest first
-        //         });
-        //         break;
-        //     case 'lowest-first':
-        //         usort($products, function ($a, $b) {
-        //             $priceA = $a->discount_id ? $a->price - ($a->discount_id * $a->price) : $a->price;
-        //             $priceB = $b->discount_id ? $b->price - ($b->discount_id * $b->price) : $b->price;
-        //             return floatval($priceA) <=> floatval($priceB); // Sort in ascending order for lowest first
-        //         });
-        //         break;
-        //     default:
-        //         break;
-        // }
     
         $this->response->setContentType('application/json');
 

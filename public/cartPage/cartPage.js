@@ -8,16 +8,19 @@ import {
 
 const cartContent = document.querySelector(`.products-container`);
 const priceOfCart = document.querySelector(`.price-of-cart`);
+const pvnPrice = document.querySelector(`.pvn-price`);
 const cartBadge = document.querySelector(`.badge`);
 const removeAllProductsButton = document.querySelector(`.remove-all-products`);
 
 let existingProductIds = [];
+let totalPrice = 0;
 
 function showProducts() {
   getFromCart()
     .then((data) => {
       if (data.cartProducts.length === 0) {
         priceOfCart.textContent = `0,00€`;
+        pvnPrice.textContent = `0,00€`;
 
         existingProductIds = [];
         cartContent.innerHTML = "";
@@ -80,16 +83,15 @@ function showProducts() {
                         <button class="main-button cart-quantity-controll increase_quantity">+</button>
                     </div>
                         <div class="cart-page-price">
-                            <span class="cart-product-price">${
-                              e.discount_precentage
-                                ? (
-                                    (
-                                      e.price -
-                                      e.discount_precentage * e.price
-                                    ).toFixed(2) * e.quantity
-                                  ).toFixed(2)
-                                : e.price * e.quantity
-                            }€</span>
+                            <span class="cart-product-price">${(e.discount_precentage
+                              ? (
+                                  (
+                                    e.price -
+                                    e.discount_precentage * e.price
+                                  ).toFixed(2) * e.quantity
+                                ).toFixed(2)
+                              : e.price * e.quantity
+                            ).toFixed(2)}€</span>
                         </div>
                         <div class="cart-page-remove">
                             <button class="main-button cart-remove" id="remove_products">Izņemt</button>
@@ -151,7 +153,12 @@ function showProducts() {
 
           if (quantitySpan && fullPriceSpan) {
             quantitySpan.textContent = existingProduct.quantity;
-            fullPriceSpan.textContent = `${existingProduct.fullPrice}€`;
+            fullPriceSpan.textContent = `${existingProduct.fullPrice.toFixed(
+              2
+            )}€`;
+            pvnPrice.textContent = `${(
+              existingProduct.fullPrice.toFixed(2) * 0.21
+            ).toFixed(2)}€`;
           }
         }
 
@@ -162,6 +169,7 @@ function showProducts() {
         });
 
         priceOfCart.textContent = `${sumPrice.toFixed(2)}€`;
+        pvnPrice.textContent = `${(sumPrice.toFixed(2) * 0.21).toFixed(2)}€`;
       });
       cartBadge.textContent = existingProductIds.length;
     })

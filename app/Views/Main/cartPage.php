@@ -17,7 +17,15 @@
                     <span class="header-buy-text">Pasūtijuma informācija</span>
                 </div>
                 <div class="total">
-                    <span class="header-buy-text">Summa apmaksai</span>
+                    <span class="header-buy-text">Piegādes maksa</span>
+                    <span class="header-buy-text shipping-price">10,00€</span>
+                </div>
+                <div class="total">
+                    <span class="header-buy-text">PVN</span>
+                    <span class="header-buy-text pvn-price">0,00€</span>
+                </div>
+                <div class="total">
+                    <span class="header-buy-text">Groza summa</span>
                     <span class="header-buy-text price-of-cart">0,00€</span>
                 </div>
                 <div class="but-button">

@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         // 'hostname'     => 'sql11.freemysqlhosting.net',
-        // 'username'     => 'sql11670095',
-        // 'password'     => 'VeNruXgxz8',
-        // 'database'     => 'sql11670095',
+        // 'username'     => 'sql11697677',
+        // 'password'     => 'WxYzwyNFWF',
+        // 'database'     => 'sql11697677',
         // 'DBDriver'     => 'MySQLi',
         'hostname'     => '127.0.0.1',
         'username'     => 'root',

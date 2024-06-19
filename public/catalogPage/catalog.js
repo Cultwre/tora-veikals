@@ -43,10 +43,20 @@ async function fetchProducts(
       throw new Error("Failed to fetch products");
     }
     const data = await response.json();
+    console.log(data);
     getMaxAndMinPrices(data.allProducts);
     createBrandFilter(data.allProducts);
     showProducts(data.products);
-    setCatalogueTitle(data.categoryName);
+    if (data.categoryName.length === 0) {
+      data.categoryName = "all";
+      data.currentCategorySlug = "all";
+
+      setCatalogueTitle([
+        { category_name: `Meklēšanas rezultāti: "${trimmedUrlPath.slice(8)}"` },
+      ]);
+    } else {
+      setCatalogueTitle(data.categoryName);
+    }
     createFilter(
       data.categoryName,
       data.currentCategorySlug,

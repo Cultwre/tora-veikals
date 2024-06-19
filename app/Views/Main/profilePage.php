@@ -13,7 +13,7 @@
                 <span class="navbar-text">Labot profilu</span>
                 <span class="material-symbols-outlined profile-icon">chevron_right</span>
             </a>
-            <a href="/profile/change-password" class="profile-navbar-button">
+            <a href="/profile/update-password" class="profile-navbar-button">
                 <span class="navbar-text">Mainīt paroli</span>
                 <span class="material-symbols-outlined profile-icon">chevron_right</span>
             </a>

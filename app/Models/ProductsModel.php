@@ -18,7 +18,7 @@ class ProductsModel extends Model
         return $query->getResult();
     }
 
-    public function getRequestedProducts($limit = null, $offset = 0, $categoryIds = null, $filtering = null, $priceLimit = [], $brands = []) 
+    public function getRequestedProducts($limit = null, $offset = 0, $categoryIds = null, $filtering = null, $priceLimit = [], $brands = [], $search = null) 
     {
         // Construct the base SQL query
         $sql = "SELECT
@@ -49,7 +49,16 @@ class ProductsModel extends Model
                  GROUP BY p2.id
              )";
         }
-
+        ////////
+        if ($search !== null) {
+            if (strpos($sql, 'WHERE') === false) {
+                $sql .= " WHERE ";
+            } else {
+                $sql .= " AND ";
+            }
+            $sql .= "p.product_name LIKE '%$search%'";
+        }
+        /////////
         $sql .= " GROUP BY p.id";
 
         // Append the WHERE clause if category IDs are provided
@@ -109,15 +118,6 @@ class ProductsModel extends Model
 
         public function countAllProducts($categoryIds = null, $priceLimit = [], $brands = []) 
     {   
-        // if ($categoryIds === null || empty($categoryIds)) {
-        //     $query = $this->db->query("SELECT COUNT(*) as total_products FROM products");
-        // } else {
-        //     // Convert the array of category IDs into a comma-separated string
-        //     $categoryIdsString = implode(',', $categoryIds);
-
-        //     // Construct the SQL query using the IN operator to match against multiple category IDs
-        //     $query = $this->db->query("SELECT COUNT(*) as total_products FROM products WHERE category_id IN ($categoryIdsString)");
-        // }
 
         $sql = 'SELECT COUNT(*) as total_products';
 
@@ -263,6 +263,34 @@ class ProductsModel extends Model
             nutrition_value nv ON pi.nutrition_id = nv.id
         WHERE
             p.id = $id;";
+
+        $query = $this->db->query($sql);
+
+        // Return the result
+        return $query->getResult();
+    }
+
+    public function getSearchedProducts($query) {
+        $sql = "
+        SELECT
+            p.id,
+            p.category_id,
+            p.product_info_id,
+            u.unit_name,
+            p.product_name,
+            p.price,
+            p.price_per_unit,
+            IFNULL(MAX(CASE WHEN d.discount_precentage IS NOT NULL AND CURDATE() BETWEEN d.start_date AND d.end_date THEN d.discount_precentage END), NULL) AS discount_precentage,
+            p.image_url
+        FROM
+            products p
+        LEFT JOIN
+            discounts d ON p.id = d.product_id
+        LEFT JOIN
+            units u ON p.unit_id = u.id
+        WHERE p.product_name LIKE '%$query%'
+        GROUP BY p.id
+        ";
 
         $query = $this->db->query($sql);
 

@@ -21,10 +21,10 @@
             <div class="swiper banner-swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <img class="banner-img" src="https://cdn.discordapp.com/attachments/774599136849952769/1209936452843085874/banner1.png?ex=65e8bc21&is=65d64721&hm=69f64c394d02bc9e714a38f4efc00fcd12694589e68e32b6bf38644c1b3b57a1&">
+                        <img class="banner-img" src="https://cdn.discordapp.com/attachments/774599136849952769/1209936452843085874/banner1.png?ex=662955a1&is=6616e0a1&hm=e73342c9840c2bfa74a79d3b0e231592051c67af2ad6a6a9d6974afffa516d59&">
                     </div>
                     <div class="swiper-slide">
-                        <img class="banner-img" src="https://cdn.discordapp.com/attachments/774599136849952769/1209955799863009300/banner1.png?ex=65e8ce26&is=65d65926&hm=e4fb5943f4e8c97cb4300f6d48c7e859248f30bb8d18dfeb43328fc1e1c42983&">
+                        <img class="banner-img" src="https://cdn.discordapp.com/attachments/774599136849952769/1209955799863009300/banner1.png?ex=662967a6&is=6616f2a6&hm=5f26ec89720ec07225b7a8de40e0d6f3b5809e7f34db5d374c70b44630bfa8c2&">
                     </div>
                 </div>
             </div>

@@ -46,6 +46,21 @@
                         <input class="search-products" type="text" placeholder="Meklēt produktu">
                         <span class="material-symbols-outlined search">search</span>
                     </div>
+                    <div class="result-wrapper">
+                        <div class="search-result_container">
+                            <div class="first-products">
+                                
+                            </div>
+                            <div class="show-more">
+                                <a class= "show-more-href" href=''>
+                                    <button class="main-button show-more_button">Rādīt vairāk</button>
+                                </a>
+                            </div>
+                            <div class="no-results">
+                                <span class="no-results-text">Nav rezultātu</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <?php if (session()->get('isLoggedIn')) : ?>
                 <a href="/profile/info" class="profile header-buttons">
