@@ -16,6 +16,7 @@ use App\Controllers\Header;
 use App\Controllers\ProductView;
 use App\Controllers\CartFunc;
 use App\Controllers\Profile;
+use App\Controllers\StripeController;
 
 $routes->get('getProductsWithDisc', [Home::class, 'getProductsWithDisc']);
 
@@ -57,3 +58,6 @@ $routes->post('profile/change-password', [Profile::class, 'updateProfilePassword
 
 $routes->post('search/product', [Header::class, 'searchForProducts']);
 
+$routes->post('create_checkout_session', [StripeController::class, 'create_checkout_session']);
+$routes->get('success', [StripeController::class, 'success']);
+$routes->get('cancel', [StripeController::class, 'cancel']);

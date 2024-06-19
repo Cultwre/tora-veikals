@@ -6,119 +6,6 @@ import {
   removeAllProducts,
 } from "../cartFunctionality.js";
 
-const openModalBtn = document.getElementById("openModalBtn");
-const modalOverlay = document.getElementById("modalOverlay");
-const closeModalBtn = document.getElementById("closeModalBtn");
-const totalPriceSpan = document.querySelector(`.total-price`);
-const addressTextInput = document.querySelector(`.fetch-address`);
-
-openModalBtn.addEventListener("click", () => {
-  modalOverlay.style.display = "flex";
-  totalPrice = parseFloat(+pvn + +cart + +shipping).toFixed(2);
-  totalPriceSpan.textContent = `${totalPrice}€`;
-});
-
-closeModalBtn.addEventListener("click", () => {
-  modalOverlay.style.display = "none";
-});
-
-modalOverlay.addEventListener("click", (event) => {
-  if (event.target === modalOverlay) {
-    modalOverlay.style.display = "none";
-  }
-});
-
-let fetchTimeout;
-let isFetching = false;
-let selectedAddress = null;
-
-const suggestionsContainer = document.getElementById("suggestions");
-const resultContainer = document.getElementById("result");
-const pircingSubmit = document.querySelector(`.confirm-shipping`);
-
-// Function to fetch address suggestions
-async function fetchAddressData(query) {
-  isFetching = true; // Set the fetching flag to true
-  try {
-    const response = await fetch(
-      `https://api.kartes.lv/v3/KVDM_EFHus/search?q=${query}&layers=adrese&limit=10&fields=name`
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
-    }
-    const data = await response.json();
-    showSuggestions(data);
-  } catch (error) {
-    console.error("There has been a problem with your fetch operation:", error);
-  } finally {
-    isFetching = false; // Reset the fetching flag to false
-  }
-}
-
-// Function to display suggestions
-function showSuggestions(suggestions) {
-  suggestionsContainer.innerHTML = "";
-  if (suggestions.adrese.length === 0) {
-    suggestionsContainer.style.display = "none";
-    return;
-  }
-  suggestions.adrese.forEach((suggestion) => {
-    const div = document.createElement("div");
-    div.textContent = suggestion.name;
-    div.addEventListener("click", () => {
-      addressTextInput.value = suggestion.name;
-      selectedAddress = suggestion.name;
-      suggestionsContainer.style.display = "none";
-    });
-    suggestionsContainer.appendChild(div);
-  });
-  suggestionsContainer.style.display = "block";
-}
-
-// Event listener for input field
-addressTextInput.addEventListener("input", function (e) {
-  // Clear the previous timeout if it exists
-  if (fetchTimeout) {
-    clearTimeout(fetchTimeout);
-  }
-
-  // Set a new timeout to fetch after 2 seconds
-  fetchTimeout = setTimeout(() => {
-    if (!isFetching) {
-      fetchAddressData(e.target.value);
-    }
-  }, 2000);
-});
-
-// Function to validate address on submit
-async function validateAddress(address) {
-  try {
-    const response = await fetch(
-      `https://api.kartes.lv/v3/KVDM_EFHus/search?q=${address}&layers=adrese&limit=1&fields=name`
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
-    }
-    const data = await response.json();
-    return data.adrese[0].name === address ? data.adrese[0] : null;
-  } catch (error) {
-    console.error("There has been a problem with your fetch operation:", error);
-    return null;
-  }
-}
-
-// Event listener for submit button
-pircingSubmit.addEventListener("click", async function () {
-  const address = addressTextInput.value;
-  const validAddress = await validateAddress(address);
-  if (validAddress) {
-    resultContainer.textContent = `Adrese ir valīda: ${validAddress.name}`;
-  } else {
-    resultContainer.textContent =
-      "Adrese nav valīda, izvelējaties vienu no piedavātājiem!";
-  }
-});
-
 const cartContent = document.querySelector(`.products-container`);
 const priceOfCart = document.querySelector(`.price-of-cart`);
 const pvnPrice = document.querySelector(`.pvn-price`);
@@ -309,3 +196,146 @@ removeAllProductsButton.addEventListener(`click`, (e) => {
 });
 
 document.addEventListener("productAddedToCart", showProducts);
+
+const openModalBtn = document.getElementById("openModalBtn");
+const modalOverlay = document.getElementById("modalOverlay");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const totalPriceSpan = document.querySelector(`.total-price`);
+const addressTextInput = document.querySelector(`.fetch-address`);
+
+openModalBtn.addEventListener("click", () => {
+  modalOverlay.style.display = "flex";
+  totalPrice = parseFloat(+pvn + +cart + +shipping).toFixed(2);
+  totalPriceSpan.textContent = `${totalPrice}€`;
+});
+
+closeModalBtn.addEventListener("click", () => {
+  modalOverlay.style.display = "none";
+});
+
+modalOverlay.addEventListener("click", (event) => {
+  if (event.target === modalOverlay) {
+    modalOverlay.style.display = "none";
+  }
+});
+
+let fetchTimeout;
+let isFetching = false;
+let selectedAddress = null;
+
+const suggestionsContainer = document.getElementById("suggestions");
+const resultContainer = document.getElementById("result");
+const pircingSubmit = document.querySelector(`.confirm-shipping`);
+
+// Function to fetch address suggestions
+async function fetchAddressData(query) {
+  isFetching = true; // Set the fetching flag to true
+  try {
+    const response = await fetch(
+      `https://api.kartes.lv/v3/KVDM_EFHus/search?q=${query}&layers=adrese&limit=10&fields=name`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    const data = await response.json();
+    showSuggestions(data);
+  } catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+  } finally {
+    isFetching = false; // Reset the fetching flag to false
+  }
+}
+
+// Function to display suggestions
+function showSuggestions(suggestions) {
+  suggestionsContainer.innerHTML = "";
+  if (suggestions.adrese.length === 0) {
+    suggestionsContainer.style.display = "none";
+    return;
+  }
+  suggestions.adrese.forEach((suggestion) => {
+    const div = document.createElement("div");
+    div.textContent = suggestion.name;
+    div.addEventListener("click", () => {
+      addressTextInput.value = suggestion.name;
+      selectedAddress = suggestion.name;
+      suggestionsContainer.style.display = "none";
+    });
+    suggestionsContainer.appendChild(div);
+  });
+  suggestionsContainer.style.display = "block";
+}
+
+// Event listener for input field
+addressTextInput.addEventListener("input", function (e) {
+  // Clear the previous timeout if it exists
+  if (fetchTimeout) {
+    clearTimeout(fetchTimeout);
+  }
+
+  // Set a new timeout to fetch after 2 seconds
+  fetchTimeout = setTimeout(() => {
+    if (!isFetching) {
+      fetchAddressData(e.target.value);
+    }
+  }, 2000);
+});
+
+// Function to validate address on submit
+async function validateAddress(address) {
+  try {
+    const response = await fetch(
+      `https://api.kartes.lv/v3/KVDM_EFHus/search?q=${address}&layers=adrese&limit=1&fields=name`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    const data = await response.json();
+    return data.adrese[0].name === address ? data.adrese[0] : null;
+  } catch (error) {
+    console.error("There has been a problem with your fetch operation:", error);
+    return null;
+  }
+}
+
+// Event listener for submit button
+// pircingSubmit.addEventListener("click", async function () {
+//   const address = addressTextInput.value;
+//   const validAddress = await validateAddress(address);
+//   if (validAddress) {
+//   } else {
+//     resultContainer.textContent =
+//       "Adrese nav valīda, izvelējaties vienu no piedavātājiem!";
+//   }
+// });
+pircingSubmit.addEventListener("click", async function () {
+  const address = addressTextInput.value;
+  const validAddress = await validateAddress(address);
+  if (validAddress) {
+    // Create a form element
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/create_checkout_session"; // Adjust this URL as needed
+
+    // Create input fields to send address and any other required data
+    const addressInput = document.createElement("input");
+    addressInput.type = "hidden";
+    addressInput.name = "address";
+    addressInput.value = validAddress.name; // Assuming 'name' is the relevant property
+
+    const totalPriceInput = document.createElement("input");
+    totalPriceInput.type = "hidden";
+    totalPriceInput.name = "totalPrice";
+    totalPriceInput.value = validAddress.name;
+
+    // Append inputs to the form
+    form.appendChild(addressInput);
+
+    // Append form to the document body and submit it
+    document.body.appendChild(form);
+    form.submit();
+  } else {
+    resultContainer.textContent =
+      "Adrese nav valīda, izvelējaties vienu no piedavātājiem!";
+  }
+});

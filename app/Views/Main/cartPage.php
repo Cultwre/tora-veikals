@@ -50,7 +50,9 @@
                     <span class="font-modal bold-font">Summa apmaksai</span>
                     <span class="font-modal bold-font total-price">0,00€</span>
                 </div>
-                <button type="button" class="main-button cart-buttons confirm-shipping">Pirkt</button>
+                <!-- <form action='/create_checkout_session' method="POST"> -->
+                    <button type="submit" class="main-button cart-buttons confirm-shipping">Pirkt</button>
+                <!-- </form> -->
             </div>
         </div>
     </div>
