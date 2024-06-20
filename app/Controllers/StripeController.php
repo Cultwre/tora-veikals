@@ -17,7 +17,24 @@ class StripeController extends Controller {
     {   
         Stripe::setApiKey($this->config->stripe_api_key);
 
-        $address = $this->request->getPost('address'); // Adjust 'address' as per your form input name
+        session()->remove('stripe_metadata');
+
+        $address = $this->request->getPost('address');
+        $totalPrice = $this->request->getPost('totalPrice') * 100; 
+        $products = json_decode($this->request->getPost('productsArr'), true);
+
+        $productsSummary = [];
+        $cartProducts = $products['cartProducts'];
+
+        foreach ($cartProducts as $product) {
+            $productsSummary[] = [
+                'product_id' => $product['product_id'],
+                'quantity' => $product['quantity'],
+                'price' => $product['price'],
+            ];
+        }
+        
+        $productsJSON = json_encode($productsSummary);
 
         // Generate Stripe checkout session and redirect user
         $session = Session::create([
@@ -25,24 +42,43 @@ class StripeController extends Controller {
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
-                    'currency' => 'usd',
+                    'currency' => 'eur',
                     'product_data' => [
                         'name' => $address,
                     ],
-                    'unit_amount' => 2000, // Amount in cents ($20.00)
+                    'unit_amount_decimal' => $totalPrice, // Amount in cents ($20.00)
                 ],
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => site_url('success'), // Redirect URLs after payment
+            'success_url' => base_url('succes'), // Redirect URLs after payment
             'cancel_url' => site_url('cancel'),
+            'metadata' => [
+                'address' => $address,
+                'total_price' => $totalPrice,
+                'products' => $productsJSON, 
+            ],
+        ]);
+
+        session()->set('stripe_metadata', [
+            'address' => $address,
+            'total_price' => $totalPrice / 100, 
+            'products' => $productsJSON, 
         ]);
 
         return redirect()->to($session->url);
     }
 
     public function success() {
-        return view('success');
+         // Retrieve metadata from the session
+         $metadata = session()->get('stripe_metadata');
+
+         // Pass metadata to the view
+         $data = [
+             'metadata' => $metadata,
+         ];
+ 
+         return view('succes', $data);
     }
 
     public function cancel() {

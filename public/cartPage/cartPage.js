@@ -11,6 +11,7 @@ const priceOfCart = document.querySelector(`.price-of-cart`);
 const pvnPrice = document.querySelector(`.pvn-price`);
 const cartBadge = document.querySelector(`.badge`);
 const removeAllProductsButton = document.querySelector(`.remove-all-products`);
+const openModalBtn = document.getElementById("openModalBtn");
 
 let existingProductIds = [];
 let cart = 0;
@@ -26,6 +27,8 @@ function showProducts() {
         pvnPrice.textContent = `0,00€`;
         pvn = 0;
         cart = 0;
+        removeAllProductsButton.disabled = true;
+        openModalBtn.disabled = true;
 
         existingProductIds = [];
         cartContent.innerHTML = "";
@@ -166,6 +169,8 @@ function showProducts() {
             ).toFixed(2)}€`;
             pvn = (existingProduct.fullPrice.toFixed(2) * 0.21).toFixed(2);
             cart = existingProduct.fullPrice.toFixed(2);
+            removeAllProductsButton.disabled = false;
+            openModalBtn.disabled = false;
           }
         }
 
@@ -179,6 +184,8 @@ function showProducts() {
         pvnPrice.textContent = `${(sumPrice.toFixed(2) * 0.21).toFixed(2)}€`;
         pvn = (sumPrice.toFixed(2) * 0.21).toFixed(2);
         cart = sumPrice.toFixed(2);
+        removeAllProductsButton.disabled = false;
+        openModalBtn.disabled = false;
       });
       cartBadge.textContent = existingProductIds.length;
     })
@@ -197,7 +204,6 @@ removeAllProductsButton.addEventListener(`click`, (e) => {
 
 document.addEventListener("productAddedToCart", showProducts);
 
-const openModalBtn = document.getElementById("openModalBtn");
 const modalOverlay = document.getElementById("modalOverlay");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const totalPriceSpan = document.querySelector(`.total-price`);
@@ -232,12 +238,13 @@ async function fetchAddressData(query) {
   isFetching = true; // Set the fetching flag to true
   try {
     const response = await fetch(
-      `https://api.kartes.lv/v3/KVDM_EFHus/search?q=${query}&layers=adrese&limit=10&fields=name`
+      `https://api.kartes.lv/v3/KVDM_5EtsM/search?q=${query}&layers=adrese&limit=10&fields=name`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);
     }
     const data = await response.json();
+    console.log(query);
     showSuggestions(data);
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
@@ -285,7 +292,7 @@ addressTextInput.addEventListener("input", function (e) {
 async function validateAddress(address) {
   try {
     const response = await fetch(
-      `https://api.kartes.lv/v3/KVDM_EFHus/search?q=${address}&layers=adrese&limit=1&fields=name`
+      `https://api.kartes.lv/v3/KVDM_5EtsM/search?q=${address}&layers=adrese&limit=1&fields=name`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);
@@ -312,28 +319,44 @@ pircingSubmit.addEventListener("click", async function () {
   const address = addressTextInput.value;
   const validAddress = await validateAddress(address);
   if (validAddress) {
-    // Create a form element
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "/create_checkout_session"; // Adjust this URL as needed
+    getFromCart()
+      .then((data) => {
+        // Create a form element
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/create_checkout_session"; // Adjust this URL as needed
 
-    // Create input fields to send address and any other required data
-    const addressInput = document.createElement("input");
-    addressInput.type = "hidden";
-    addressInput.name = "address";
-    addressInput.value = validAddress.name; // Assuming 'name' is the relevant property
+        // Create input fields to send address and any other required data
+        const addressInput = document.createElement("input");
+        addressInput.type = "hidden";
+        addressInput.name = "address";
+        addressInput.value = validAddress.name; // Assuming 'validAddress' is defined and has 'name' property
 
-    const totalPriceInput = document.createElement("input");
-    totalPriceInput.type = "hidden";
-    totalPriceInput.name = "totalPrice";
-    totalPriceInput.value = validAddress.name;
+        const totalPriceInput = document.createElement("input");
+        totalPriceInput.type = "hidden";
+        totalPriceInput.name = "totalPrice";
+        totalPriceInput.value = parseFloat(totalPrice).toFixed(2); // Assuming 'totalPrice' is defined and calculated
 
-    // Append inputs to the form
-    form.appendChild(addressInput);
+        const productsInput = document.createElement("input");
+        productsInput.type = "hidden";
+        productsInput.name = "productsArr";
+        productsInput.value = JSON.stringify(data); // Convert cartProducts to JSON string and assign
 
-    // Append form to the document body and submit it
-    document.body.appendChild(form);
-    form.submit();
+        // Append inputs to the form
+        form.appendChild(addressInput);
+        form.appendChild(totalPriceInput);
+        form.appendChild(productsInput);
+
+        // Append form to the document body
+        document.body.appendChild(form);
+
+        // Submit the form
+        form.submit();
+      })
+      .catch((error) => {
+        console.error("Error fetching cart products:", error);
+        // Handle error as needed
+      });
   } else {
     resultContainer.textContent =
       "Adrese nav valīda, izvelējaties vienu no piedavātājiem!";

@@ -289,3 +289,43 @@ input[type="checkbox"]:hover {
 .pointer-none:hover {
   color: #868e96;
 }
+
+.centred {
+  width: 100%;
+  height: 100vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-success {
+  background-color: white;
+  width: 500px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  gap: 30px;
+  padding: 20px;
+}
+
+.font-bigger {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #868e96;
+}
+
+.success-button {
+  width: 400px;
+  height: 40px;
+}
+
+.hyperlink-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}

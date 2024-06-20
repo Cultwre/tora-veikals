@@ -22,19 +22,19 @@
                 <span class="material-symbols-outlined profile-icon">chevron_right</span>
             </a>
         </div>
-        <div class="profile-info">
-            <span class="profile-info-title">Profila informācija</span>
-            <div class="info-of-user">
-                <span class="hyperlink pointer-none">Vārds</span>
-                <span class="header-buy-text"><?= session()->get('firstname') ?></span>
+        <div class="orders-history profile-info">
+            <span class="profile-info-title">Pasūtijumu vēsture</span>
+            <div class="order-container">  
             </div>
-            <div class="info-of-user">
-                <span class="hyperlink pointer-none">Uzvārds</span>
-                <span class="header-buy-text"><?= session()->get('lastname') ?></span>
+        </div>
+    </div>
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal special-modal">
+            <div class="modal-header">
+                <span class="font-modal">Pasūtijumu informācija</span>
+                <span id="closeModalBtn" class="modal-close">&times;</span>
             </div>
-            <div class="info-of-user">
-                <span class="hyperlink pointer-none">E-pasts</span>
-                <span class="header-buy-text"><?= session()->get('email') ?></span>
+            <div class="modal-body">
             </div>
         </div>
     </div>

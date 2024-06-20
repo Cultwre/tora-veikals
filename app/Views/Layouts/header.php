@@ -72,6 +72,7 @@
                     <span class="hyperlink">Ienākt / Reģistrēties</span>
                 <?php endif; ?>
                 </a>
+                <?php if (session()->get('isLoggedIn')) : ?>
                 <a href="/product-cart" class="cart header-buttons">
                     <div class="cart-container">
                         <span class="material-symbols-outlined header-icons cart-icon">shopping_cart</span>
@@ -79,6 +80,15 @@
                 </div>
                     <span class="hyperlink">Mans grozs</span>
                 </a>
+                <?php else : ?>
+                <a href="/register" class="cart header-buttons">
+                    <div class="cart-container">
+                        <span class="material-symbols-outlined header-icons cart-icon">shopping_cart</span>
+                    <div class="badge">0</div>
+                </div>
+                    <span class="hyperlink">Mans grozs</span>
+                </a>
+                <?php endif; ?>
             </div>
         </header>
         <?= $navbarContent ?>

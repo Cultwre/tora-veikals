@@ -17,6 +17,7 @@ use App\Controllers\ProductView;
 use App\Controllers\CartFunc;
 use App\Controllers\Profile;
 use App\Controllers\StripeController;
+use App\Controllers\Orders;
 
 $routes->get('getProductsWithDisc', [Home::class, 'getProductsWithDisc']);
 
@@ -52,6 +53,7 @@ $routes->get('profile/info', [Profile::class, 'index']);
 $routes->get('profile/update', [Profile::class, 'updateProfileInfoView']);
 $routes->get('profile/update-password', [Profile::class, 'updateProfilePasswordView']);
 $routes->post('profile/logout', [Profile::class, 'logout']);
+$routes->get('profile/orders', [Profile::class, 'orderHistory']);
 
 $routes->post('profile/update-info', [Profile::class, 'updateProfileInfo']);
 $routes->post('profile/change-password', [Profile::class, 'updateProfilePassword']);
@@ -59,5 +61,9 @@ $routes->post('profile/change-password', [Profile::class, 'updateProfilePassword
 $routes->post('search/product', [Header::class, 'searchForProducts']);
 
 $routes->post('create_checkout_session', [StripeController::class, 'create_checkout_session']);
-$routes->get('success', [StripeController::class, 'success']);
+$routes->get('succes', [StripeController::class, 'success']);
 $routes->get('cancel', [StripeController::class, 'cancel']);
+
+$routes->post('orders/add', [Orders::class, 'orderAdd']);
+$routes->get('orders/getOrders', [Orders::class, 'getOrders']);
+$routes->get('orders/(:any)', [Orders::class, 'getOrderDetails']);

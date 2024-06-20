@@ -10,10 +10,6 @@
                 <div class="category-dropdown second-categoryContainer"></div>
                 <div class="category-dropdown third-categoryContainer"></div>
             </div>
-            <a href="/catalog" class="row-with-gap">
-                <span class="material-symbols-outlined">savings</span>
-                <span class="hyperlink">Atlaides</span>
-            </a>
         </ul>
     </nav>
 </div>

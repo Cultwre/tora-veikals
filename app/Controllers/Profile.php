@@ -141,6 +141,19 @@ class Profile extends BaseController
         return $this->response->setJSON($data);
     }
 
+    public function orderHistory()
+    {   
+        $footerCategories = $this->footerCategories;
+        $allCategories = json_encode($this->allCategories);
+        
+        $cartContent = view('Layouts/cart');
+        $navbarContent = view('Layouts/navbar', compact('footerCategories', 'allCategories'));
+    
+        return view('Layouts/header', compact('navbarContent'))
+            . view('Main/orderHistory')
+            . view('Layouts/footer', compact('footerCategories'));
+    }
+
     private function setUserMethod($user) {
         $data = [
             'id' => $user['id'],

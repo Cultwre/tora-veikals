@@ -5,7 +5,7 @@
                 <span class="navbar-text">Profila informācija</span>
                 <span class="material-symbols-outlined profile-icon">chevron_right</span>
             </a>
-            <a href="#" class="profile-navbar-button">
+            <a href="/profile/orders" class="profile-navbar-button">
                 <span class="navbar-text">Pasūtijumu vēsture</span>
                 <span class="material-symbols-outlined profile-icon">chevron_right</span>
             </a>

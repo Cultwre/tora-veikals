@@ -22,7 +22,7 @@
                     <span class="form-error password-error"></span>
                 </div>
                 <div class="btn-container">
-                    <input class="main-button register-button" type="submit" value="Reģistrēties">
+                    <input class="main-button register-button" type="submit" value="Ienākt">
                 </div>
                 <div class="nav-buttons">
                     <a class="hyperlink" href="/register">Izveidot jauno kontu</a>

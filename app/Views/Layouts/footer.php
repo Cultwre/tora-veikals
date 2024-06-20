@@ -53,5 +53,6 @@
 <script src="<?php echo base_url("navbar/navbar.js");?>"></script>
 <script type="module" src="<?php echo base_url("cartPage/cartPage.js");?>"></script>
 <script src="<?php echo base_url("profilePage/profilePage.js");?>"></script>
+<script src="<?php echo base_url("orderPage/orders.js");?>"></script>
 </body>
 </html>
